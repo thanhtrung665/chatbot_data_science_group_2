@@ -1,0 +1,16 @@
+# Bỏ qua file môi trường chứa API KEY (CỰC QUAN TRỌNG)
+.env
+
+# Bỏ qua thư mục Git
+.git
+.gitignore
+
+# Bỏ qua các file cache của Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/

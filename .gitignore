@@ -1,0 +1,62 @@
+# =========================
+# 1. BẢO MẬT (QUAN TRỌNG NHẤT)
+# =========================
+# Chặn tất cả các file biến môi trường chứa API Key
+.env
+.env.*
+!.env.example
+
+# Chặn file secrets của Streamlit (nếu bạn deploy lên Streamlit Cloud)
+.streamlit/secrets.toml
+
+# =========================
+# 2. PYTHON SYSTEM FILES (RÁC)
+# =========================
+# File bytecode (sinh ra tự động khi chạy python)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Các thư viện ảo (Virtual Environment)
+# Tên folder thường gặp, chặn hết cho chắc
+venv/
+env/
+.venv/
+.env/
+
+# =========================
+# 3. AI & LARGE FILES (DỮ LIỆU NẶNG)
+# =========================
+# Nếu bạn có download model về máy (weights), chặn nó lại
+*.bin
+*.pth
+*.onnx
+*.safetensors
+models/
+
+# Chặn thư mục chứa Vector DB local (nếu dùng Chroma/FAISS/Qdrant local)
+qdrant_storage/
+chroma_db/
+faiss_index/
+
+# Dữ liệu nguồn (PDF, CSV...) nếu không muốn public
+data/
+dataset/
+
+# =========================
+# 4. IDE & EDITOR CONFIG (CÁ NHÂN)
+# =========================
+# File cấu hình riêng của VS Code
+.vscode/
+# File cấu hình của PyCharm
+.idea/
+# File hệ thống Mac/Windows
+.DS_Store
+Thumbs.db
+
+# =========================
+# 5. STREAMLIT & LOGS
+# =========================
+# File log lỗi
+*.log
+npm-debug.log*

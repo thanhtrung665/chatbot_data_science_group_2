@@ -1,0 +1,35 @@
+# --- Core Application ---
+streamlit==1.38.0
+python-dotenv==1.0.1
+
+# --- Vector Database ---
+qdrant-client==1.11.1
+
+# --- LLM & AI Core (Phiên bản hỗ trợ Qwen 2.5 tốt nhất) ---
+# Torch 2.4.x là bản ổn định cao, tương thích tốt với các GPU đời mới và CPU
+torch==2.4.0
+torchvision==0.19.0
+torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cpu
+
+# Transformers bản 4.44+ bắt buộc để chạy Qwen 2.5 mượt mà
+transformers==4.44.2
+accelerate==0.34.0
+huggingface-hub==0.24.6
+
+# Thư viện hỗ trợ tính toán tensor cho Qwen (Quan trọng)
+einops==0.8.0
+
+# --- LangChain Ecosystem (Đồng bộ phiên bản) ---
+# LangChain tách ra thành nhiều gói nhỏ, cần cài đúng bộ
+langchain==0.3.0
+langchain-community==0.3.0
+langchain-core==0.3.0
+langchain-huggingface==0.1.0
+langchain-text-splitters==0.3.0
+
+# --- Utilities & Data ---
+numpy==1.26.4
+requests==2.32.3
+packaging==24.1
+PyYAML==6.0.2
+typing_extensions==4.12.2
