@@ -12,21 +12,21 @@ load_dotenv()
 class RAGPipeline:
     def __init__(self):
         """Khởi tạo các thành phần của hệ thống RAG"""
-        print("🚀 Đang khởi tạo RAG Pipeline...")
+        print("Đang khởi tạo RAG Pipeline...")
         self._setup_auth()
         self._setup_qdrant()
         self._setup_models()
-        print("✅ RAG Pipeline đã sẵn sàng!")
+        print("RAG Pipeline sẵn sàng")
 
     def _setup_auth(self):
-        """Đăng nhập HuggingFace nếu có Token"""
+        """Đăng nhập HuggingFace"""
         hf_token = os.getenv("HF_TOKEN")
         if hf_token:
             try:
                 login(token=hf_token)
-                print("🔹 Đã login HuggingFace.")
+                print("Đã login HuggingFace.")
             except Exception as e:
-                print(f"⚠️ Login HF thất bại: {e}")
+                print(f"Login HF thất bại: {e}")
 
     def _setup_qdrant(self):
         """Kết nối Qdrant Database"""
@@ -40,21 +40,21 @@ class RAGPipeline:
             )
             # Kiểm tra kết nối nhanh bằng cách lấy info collection
             self.qdrant_client.get_collection(self.collection_name)
-            print("🔹 Kết nối Qdrant thành công.")
+            print("Kết nối Qdrant thành công.")
         except Exception as e:
-            print(f"❌ Lỗi kết nối Qdrant: {e}")
+            print(f"Lỗi kết nối Qdrant: {e}")
             raise e
 
     def _setup_models(self):
         """Load Embedding & LLM Models"""
         # 1. Embedding Model
-        print("⏳ Đang load Embedding Model...")
+        print("Đang load Embedding Model...")
         self.embeddings = HuggingFaceEmbeddings(
             model_name="intfloat/multilingual-e5-large"
         )
 
         # 2. LLM Model
-        print("⏳ Đang load LLM (Qwen2.5-1.5b-pro)...")
+        print("Đang load LLM (Qwen2.5-1.5b-pro)...")
         model_name = "dai3107/qwen2.5-1.5b-pro"
         
         tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
@@ -99,14 +99,14 @@ class RAGPipeline:
                 
             return valid_results
         except Exception as e:
-            print(f"❌ Lỗi Retrieve: {e}")
+            print(f"Lỗi Retrieve: {e}")
             return None
 
     def generate_answer(self, query: str):
         """Quy trình RAG hoàn chỉnh: Retrieve -> Prompt -> Generate"""
         
         # 1. Retrieve
-        print(f"🔎 Đang tìm kiếm: {query}")
+        print(f"Đang tìm kiếm: {query}")
         results = self.retrieve_documents(query)
         
         if not results:
@@ -137,7 +137,7 @@ Câu hỏi: {query}
 <|im_start|>assistant
 """
         # 4. Generate
-        print("🤖 Đang suy nghĩ...")
+        print("Đang suy nghĩ...")
         try:
             response = self.llm.invoke(prompt_template)
             # Clean up response (đôi khi pipeline trả về cả prompt)
@@ -155,9 +155,9 @@ if __name__ == "__main__":
     rag = RAGPipeline()
     
     while True:
-        q = input("\n💬 Mời nhập câu hỏi (gõ 'exit' để thoát): ")
+        q = input("\nMời nhập câu hỏi (gõ 'exit' để thoát): ")
         if q.lower() in ["exit", "quit"]:
             break
         
         ans = rag.generate_answer(q)
-        print(f"\n💡 Trả lời:\n{ans}\n" + "-"*50)
+        print(f"\nTrả lời:\n{ans}\n" + "-"*50)
